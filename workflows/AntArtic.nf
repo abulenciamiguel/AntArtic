@@ -24,7 +24,7 @@ workflow AntArtic {
 		ch_fasta.collectFile(name: "allseq.fasta", newLine: true, storeDir: params.out_dir)
 				.set{ch_combinedFASTA}
 				
-		usherAlign(ch_fach_combinedFASTAsta)
+		usherAlign(ch_combinedFASTA)
 		usherDL()
 		//usherLineage(ch_fasta, usherDL.out.pb)
         
