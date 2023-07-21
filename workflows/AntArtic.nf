@@ -20,8 +20,12 @@ workflow AntArtic {
 	main:
 		nextcladeDL()
 		nextcladeLineage(ch_fasta, nextcladeDL.out.nextclade_all)
-		usherAlign(ch_fasta)
+
+		ch_fasta.collectFile(name: "allseq.fasta", newLine: true, storeDir: params.out_dir)
+				.set{ch_combinedFASTA}
+				
+		usherAlign(ch_fach_combinedFASTAsta)
 		usherDL()
-		usherLineage(ch_fasta, usherDL.out.pb)
+		//usherLineage(ch_fasta, usherDL.out.pb)
         
 }
