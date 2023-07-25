@@ -16,14 +16,14 @@ process usherLineage {
     path usher_pb
 
 	output:
-	path "$central_id/*", emit: usherLin
+	path "$central_id/", emit: usherLin
 
 
 
 	script:
 	"""
     usher -i $usher_pb \
-    -v $vcf -k 50 -K 2000 -T 5 -d $central_id
+    -v $vcf -k 50 -K 2000 -T 1 -d $central_id
 
 	"""
 }

@@ -13,22 +13,24 @@ process usherAlign {
 	)
 
 	input:
-	path fasta
+	tuple val(central_id), path(fasta)
+	path usherDB
+	path usherProblemSites
 
 	output:
-	path "usherAligned.vcf", emit: usherAligned
-	path "usherAligned.fasta"
+	path "usherAligned*fasta"
+	tuple val(central_id), path("usherAligned*vcf"), emit: vcf
 
 	script:
 	"""
 	mafft --thread 20 --auto --keeplength --addfragments \
 	$fasta \
-	$params.usherDB > usherAligned.fasta
+	$usherDB > usherAligned.${central_id}.fasta
 
 
-	faToVcf -includeNoAltN -maskSites=$params.usherProblemSites \
-	usherAligned.fasta \
-	usherAligned.vcf
+	faToVcf -includeNoAltN -maskSites=$usherProblemSites \
+	usherAligned.${central_id}.fasta \
+	usherAligned.${central_id}.vcf
 
 	"""
 }
