@@ -11,9 +11,7 @@ include {AntArtic} from './workflows/AntArtic.nf'
 
 workflow {
 
-	Channel
-		.fromPath(params.sample_sheet)
-		.set{ch_fasta}
+
 	Channel
 		.fromPath(params.sample_sheet)
 		.splitCsv(header:true)

@@ -20,8 +20,9 @@ workflow AntArtic {
 	main:
 		nextcladeDL()
 		nextcladeLineage(ch_fasta, nextcladeDL.out.nextclade_all)
-		usherAlign(ch_fasta)
+
+		usherAlign(ch_fasta, params.usherDB, params.usherProblemSites)
 		usherDL()
-		usherLineage(ch_fasta, usherDL.out.pb)
+		usherLineage(usherAlign.out.vcf, usherDL.out.pb)
         
 }
